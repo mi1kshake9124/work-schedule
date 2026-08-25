@@ -593,17 +593,18 @@ async function loadData() {
 }
 
 async function saveCompleted() {
+  let debug = '';
   const token = getToken();
-  alert('DEBUG: token=' + (token ? token.substring(0,8)+'...' : '空! 请点⚙设置Token'));
-  if (!token) { localStorage.setItem('completed_local',JSON.stringify([...completed])); return; }
+  debug += 'Token: ' + (token ? token.substring(0,8)+'...' : '空!') + '\n';
+  if (!token) { localStorage.setItem('completed_local',JSON.stringify([...completed])); alert(debug + '状态: Token未设置，请点⚙齿轮设置Token'); return; }
   setSync('saving','保存中...');
   let sha = '';
   try {
     const cur = await ghFetch(COMPLETED_FILE, token);
     sha = cur.sha;
-    alert('DEBUG: 获取SHA成功='+sha.substring(0,8));
+    debug += 'SHA: 获取成功\n';
   } catch(e) {
-    alert('DEBUG: 获取SHA失败='+e.message);
+    debug += 'SHA: 获取失败 - ' + e.message + '\n';
   }
   const arr = [...completed];
   const content = btoa(unescape(encodeURIComponent(JSON.stringify(arr,null,2))));
@@ -612,12 +613,13 @@ async function saveCompleted() {
     localStorage.setItem('completed_local',JSON.stringify(arr));
     const now = new Date();
     setSync('ok','已同步 · '+now.getHours().toString().padStart(2,'0')+':'+now.getMinutes().toString().padStart(2,'0'));
-    alert('DEBUG: 同步成功!');
+    debug += '结果: 同步成功!';
   } catch(e) {
     setSync('err','同步失败，已本地保存');
     localStorage.setItem('completed_local',JSON.stringify(arr));
-    alert('DEBUG: 同步失败='+e.message);
+    debug += '结果: 同步失败 - ' + e.message;
   }
+  alert(debug);
 }
 
 function setSync(state, text) {
