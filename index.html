@@ -435,13 +435,17 @@ async function ghPut(path, content, message, sha, token) {
 }
 
 async function loadData() {
-  const token = getToken();
-  const dataRaw = await ghFetch(DATA_FILE, token);
-  projectData = JSON.parse(atob(dataRaw.content));
+  // Use raw URL for reading (no auth/rate limit issues for public repos)
+  const rawBase = 'https://raw.githubusercontent.com/'+GITHUB_OWNER+'/'+GITHUB_REPO+'/main/';
+  const dataResp = await fetch(rawBase + DATA_FILE + '?t=' + Date.now());
+  if (!dataResp.ok) throw new Error('数据加载失败 ('+dataResp.status+')');
+  projectData = await dataResp.json();
   try {
-    const compRaw = await ghFetch(COMPLETED_FILE, token);
-    const arr = JSON.parse(atob(compRaw.content));
-    completed = new Set(Array.isArray(arr) ? arr : []);
+    const compResp = await fetch(rawBase + COMPLETED_FILE + '?t=' + Date.now());
+    if (compResp.ok) {
+      const arr = await compResp.json();
+      completed = new Set(Array.isArray(arr) ? arr : []);
+    } else { completed = new Set(); }
   } catch(e) { completed = new Set(); }
 }
 
@@ -840,12 +844,7 @@ async function init() {
     render();
     setSync('ok','已加载');
   } catch(e) {
-    if (e.message && (e.message.includes('401')||e.message.includes('403')||e.message.includes('404'))) {
-      // Auth needed
-      document.getElementById('loadingView').innerHTML = '<div style="font-size:16px;margin-bottom:12px;">🔒 需要连接 GitHub</div><div style="font-size:13px;color:var(--text-secondary);">请点击下方按钮输入你的 GitHub Token</div><button onclick="openSetup()" style="margin-top:16px;padding:10px 24px;border-radius:8px;background:var(--brand);color:#fff;border:none;font-size:14px;font-weight:600;cursor:pointer;">连接 GitHub</button>';
-    } else {
-      document.getElementById('loadingView').innerHTML = '<div style="color:var(--danger);">加载失败：'+e.message+'</div><button onclick="location.reload()" style="margin-top:12px;padding:8px 20px;border-radius:8px;background:var(--brand);color:#fff;border:none;cursor:pointer;">重试</button>';
-    }
+    document.getElementById('loadingView').innerHTML = '<div style="font-size:16px;margin-bottom:8px;">加载失败</div><div style="font-size:13px;color:var(--text-secondary);">'+e.message+'</div><button onclick="location.reload()" style="margin-top:16px;padding:10px 24px;border-radius:8px;background:var(--brand);color:#fff;border:none;font-size:14px;font-weight:600;cursor:pointer;">重试</button>';
   }
 }
 
