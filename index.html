@@ -3,864 +3,383 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>工作日程 - 2026年8月25日</title>
+<title>工作日程</title>
 <style>
   :root {
-    --bg: #F3F4F8;
-    --card: #FFFFFF;
-    --text-primary: #1A1D26;
-    --text-secondary: #6B7280;
-    --text-muted: #9CA3AF;
-    --brand: #4F6EF7;
-    --brand-light: #EEF1FE;
-    --success: #22C55E;
-    --success-light: #ECFDF5;
-    --warning: #F59E0B;
-    --warning-light: #FFFBEB;
-    --danger: #EF4444;
-    --danger-light: #FEF2F2;
+    --bg: #F3F4F8; --card: #FFFFFF; --text-primary: #1A1D26;
+    --text-secondary: #6B7280; --text-muted: #9CA3AF;
+    --brand: #4F6EF7; --brand-light: #EEF1FE;
+    --success: #22C55E; --success-light: #ECFDF5;
+    --warning: #F59E0B; --warning-light: #FFFBEB;
+    --danger: #EF4444; --danger-light: #FEF2F2;
     --divider: #E5E7EB;
     --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
     --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
     --shadow-lg: 0 8px 24px rgba(0,0,0,0.12);
-    --radius: 12px;
-    --radius-sm: 8px;
-    --radius-xs: 6px;
+    --radius: 12px; --radius-sm: 8px;
   }
-
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-
+  * { margin:0; padding:0; box-sizing:border-box; }
   body {
-    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
-    background: var(--bg);
-    color: var(--text-primary);
-    line-height: 1.5;
-    min-height: 100vh;
-    -webkit-font-smoothing: antialiased;
+    font-family: -apple-system,BlinkMacSystemFont,'SF Pro Display','Segoe UI','PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif;
+    background:var(--bg); color:var(--text-primary); line-height:1.5;
+    min-height:100vh; -webkit-font-smoothing:antialiased;
   }
-
-  @media (prefers-reduced-motion: reduce) {
-    * { transition: none !important; animation: none !important; }
-  }
-
-  .app {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 20px 16px 60px;
-  }
+  .app { max-width:1100px; margin:0 auto; padding:20px 16px 80px; }
 
   /* Header */
-  .header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 24px;
+  .header { display:flex; align-items:center; justify-content:space-between; margin-bottom:24px; }
+  .header-left h1 { font-size:22px; font-weight:700; letter-spacing:-0.3px; }
+  .header-left .date { font-size:13px; color:var(--text-secondary); margin-top:2px; }
+  .header-right { display:flex; gap:8px; align-items:center; }
+  .icon-btn {
+    width:36px; height:36px; border-radius:50%; border:1.5px solid var(--divider);
+    background:var(--card); cursor:pointer; display:flex; align-items:center;
+    justify-content:center; font-size:16px; transition:all .15s; color:var(--text-secondary);
   }
-  .header-left h1 {
-    font-size: 22px;
-    font-weight: 700;
-    letter-spacing: -0.3px;
+  .icon-btn:hover { border-color:var(--brand); color:var(--brand); }
+  .cal-link {
+    text-decoration:none; display:flex; align-items:center; gap:6px;
+    padding:6px 14px; border-radius:20px; font-size:13px; font-weight:600;
+    background:var(--brand); color:#fff; border:1.5px solid var(--brand);
+    cursor:pointer; transition:all .15s;
   }
-  .header-left .date {
-    font-size: 13px;
-    color: var(--text-secondary);
-    margin-top: 2px;
-  }
-  .header-right {
-    display: flex;
-    gap: 8px;
-  }
+  .cal-link:hover { opacity:.9; }
 
   /* Stats */
-  .stats-row {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 12px;
-    margin-bottom: 24px;
-  }
+  .stats-row { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-bottom:24px; }
   .stat-card {
-    background: var(--card);
-    border-radius: var(--radius);
-    padding: 16px;
-    box-shadow: var(--shadow-sm);
-    border: 1px solid var(--divider);
-    cursor: pointer;
-    transition: box-shadow 0.15s, border-color 0.15s, transform 0.1s;
+    background:var(--card); border-radius:var(--radius); padding:16px;
+    box-shadow:var(--shadow-sm); border:1px solid var(--divider);
+    cursor:pointer; transition:box-shadow .15s,border-color .15s,transform .1s;
   }
-  .stat-card:hover {
-    box-shadow: var(--shadow-md);
-    border-color: var(--brand);
-    transform: translateY(-2px);
-  }
-  .stat-card .label {
-    font-size: 11px;
-    color: var(--text-muted);
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    margin-bottom: 4px;
-  }
-  .stat-card .value {
-    font-size: 26px;
-    font-weight: 800;
-    line-height: 1.2;
-  }
-  .stat-card .sub {
-    font-size: 11px;
-    color: var(--text-secondary);
-    margin-top: 2px;
-  }
-
-  /* Section */
-  .section {
-    margin-bottom: 24px;
-  }
-  .section-head {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 12px;
-  }
-  .section-head h2 {
-    font-size: 16px;
-    font-weight: 700;
-  }
-  .badge {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 20px;
-    height: 20px;
-    padding: 0 6px;
-    border-radius: 10px;
-    font-size: 11px;
-    font-weight: 700;
-  }
+  .stat-card:hover { box-shadow:var(--shadow-md); border-color:var(--brand); transform:translateY(-2px); }
+  .stat-card .label { font-size:11px; color:var(--text-muted); font-weight:600; text-transform:uppercase; letter-spacing:.5px; margin-bottom:4px; }
+  .stat-card .value { font-size:26px; font-weight:800; line-height:1.2; }
+  .stat-card .sub { font-size:11px; color:var(--text-secondary); margin-top:2px; }
 
   /* Today Panel */
   .today-panel {
-    background: linear-gradient(135deg, #4F6EF7 0%, #7C5CFC 100%);
-    border-radius: var(--radius);
-    padding: 20px;
-    margin-bottom: 24px;
-    color: #fff;
-    box-shadow: var(--shadow-md);
+    background:linear-gradient(135deg,#4F6EF7 0%,#7C5CFC 100%);
+    border-radius:var(--radius); padding:20px; margin-bottom:24px;
+    color:#fff; box-shadow:var(--shadow-md);
   }
   .today-panel .today-title {
-    font-size: 14px;
-    font-weight: 600;
-    opacity: 0.85;
-    margin-bottom: 12px;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
-  .today-panel .today-title svg {
-    width: 16px; height: 16px;
-  }
-  .today-items {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
+    font-size:14px; font-weight:600; opacity:.85; margin-bottom:12px;
+    display:flex; align-items:center; gap:6px;
   }
   .today-item {
-    background: rgba(255,255,255,0.15);
-    backdrop-filter: blur(4px);
-    border-radius: var(--radius-sm);
-    padding: 10px 14px;
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    cursor: pointer;
-    transition: background 0.15s;
+    background:rgba(255,255,255,.15); backdrop-filter:blur(4px);
+    border-radius:var(--radius-sm); padding:10px 14px;
+    display:flex; align-items:flex-start; gap:10px;
+    cursor:pointer; transition:background .15s; margin-bottom:8px;
   }
-  .today-item:hover {
-    background: rgba(255,255,255,0.25);
-  }
-  .today-item .ti-project {
-    font-size: 11px;
-    font-weight: 600;
-    opacity: 0.75;
-    margin-bottom: 2px;
-  }
-  .today-item .ti-task {
-    font-size: 14px;
-    font-weight: 500;
-  }
+  .today-item:last-child { margin-bottom:0; }
+  .today-item:hover { background:rgba(255,255,255,.25); }
+  .today-item .ti-project { font-size:11px; font-weight:600; opacity:.75; margin-bottom:2px; }
+  .today-item .ti-task { font-size:14px; font-weight:500; }
   .today-item .ti-icon {
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    border: 2px solid rgba(255,255,255,0.5);
-    flex-shrink: 0;
-    margin-top: 1px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: all 0.15s;
+    width:20px; height:20px; border-radius:50%;
+    border:2px solid rgba(255,255,255,.5); flex-shrink:0; margin-top:1px;
+    display:flex; align-items:center; justify-content:center;
+    cursor:pointer; transition:all .15s;
   }
-  .today-item .ti-icon:hover {
-    border-color: #fff;
-    background: rgba(255,255,255,0.2);
-  }
-  .today-item .ti-icon.checked {
-    background: rgba(255,255,255,0.9);
-    border-color: rgba(255,255,255,0.9);
-  }
-  .today-item .ti-icon.checked::after {
-    content: '✓';
-    color: #4F6EF7;
-    font-size: 12px;
-    font-weight: 700;
-  }
-  .today-item.done .ti-task {
-    text-decoration: line-through;
-    opacity: 0.5;
-  }
-  .today-empty {
-    text-align: center;
-    padding: 16px;
-    opacity: 0.7;
-    font-size: 14px;
-  }
+  .today-item .ti-icon:hover { border-color:#fff; background:rgba(255,255,255,.2); }
+  .today-item .ti-icon.checked { background:rgba(255,255,255,.9); border-color:rgba(255,255,255,.9); }
+  .today-item .ti-icon.checked::after { content:'✓'; color:#4F6EF7; font-size:12px; font-weight:700; }
+  .today-item.done .ti-task { text-decoration:line-through; opacity:.5; }
+  .today-empty { text-align:center; padding:16px; opacity:.7; font-size:14px; }
 
   /* Tab Filter */
-  .tab-bar {
-    display: flex;
-    gap: 6px;
-    margin-bottom: 16px;
-    flex-wrap: wrap;
-  }
+  .tab-bar { display:flex; gap:6px; margin-bottom:16px; flex-wrap:wrap; }
   .tab-btn {
-    padding: 6px 14px;
-    border-radius: 20px;
-    font-size: 13px;
-    font-weight: 600;
-    border: 1.5px solid var(--divider);
-    background: var(--card);
-    color: var(--text-secondary);
-    cursor: pointer;
-    transition: all 0.15s;
+    padding:6px 14px; border-radius:20px; font-size:13px; font-weight:600;
+    border:1.5px solid var(--divider); background:var(--card);
+    color:var(--text-secondary); cursor:pointer; transition:all .15s;
   }
-  .tab-btn:hover { border-color: var(--brand); color: var(--brand); }
-  .tab-btn:focus-visible { border-color: var(--brand); color: var(--brand); outline: 2px solid var(--brand); outline-offset: 2px; }
-  .tab-btn.active {
-    background: var(--brand);
-    color: #fff;
-    border-color: var(--brand);
-  }
+  .tab-btn:hover { border-color:var(--brand); color:var(--brand); }
+  .tab-btn.active { background:var(--brand); color:#fff; border-color:var(--brand); }
 
-  /* Project Group */
+  /* Section & Group */
+  .section { margin-bottom:24px; }
+  .section-head { display:flex; align-items:center; gap:8px; margin-bottom:12px; }
+  .section-head h2 { font-size:16px; font-weight:700; }
+  .badge {
+    display:inline-flex; align-items:center; justify-content:center;
+    min-width:20px; height:20px; padding:0 6px; border-radius:10px;
+    font-size:11px; font-weight:700;
+  }
   .group-header {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin: 16px 0 10px;
-    cursor: pointer;
-    user-select: none;
+    display:flex; align-items:center; gap:8px; margin:16px 0 10px;
+    cursor:pointer; user-select:none;
   }
-  .group-dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    flex-shrink: 0;
-  }
-  .dot-construction { background: var(--success); }
-  .dot-design { background: var(--brand); }
-  .dot-idle { background: var(--text-muted); }
-  .dot-pending { background: var(--warning); }
-  .group-name {
-    font-size: 14px;
-    font-weight: 700;
-  }
-  .group-count {
-    font-size: 12px;
-    color: var(--text-muted);
-  }
-  .group-arrow {
-    margin-left: auto;
-    font-size: 12px;
-    color: var(--text-muted);
-    transition: transform 0.2s;
-  }
-  .group-header.collapsed .group-arrow {
-    transform: rotate(-90deg);
-  }
+  .group-dot { width:10px; height:10px; border-radius:50%; flex-shrink:0; }
+  .dot-construction { background:var(--success); }
+  .dot-design { background:var(--brand); }
+  .dot-idle { background:var(--text-muted); }
+  .group-name { font-size:14px; font-weight:700; }
+  .group-count { font-size:12px; color:var(--text-muted); }
+  .group-arrow { margin-left:auto; font-size:12px; color:var(--text-muted); transition:transform .2s; }
+  .group-header.collapsed .group-arrow { transform:rotate(-90deg); }
   .group-content {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: 10px;
-    overflow: hidden;
-    transition: max-height 0.3s ease, opacity 0.2s;
+    display:grid; grid-template-columns:repeat(auto-fill,minmax(320px,1fr));
+    gap:10px; overflow:hidden; transition:max-height .3s ease,opacity .2s;
   }
-  .group-content.hidden {
-    max-height: 0;
-    opacity: 0;
-    margin: 0;
-  }
+  .group-content.hidden { max-height:0; opacity:0; margin:0; }
 
   /* Project Card */
   .p-card {
-    background: var(--card);
-    border-radius: var(--radius);
-    border: 1px solid var(--divider);
-    box-shadow: var(--shadow-sm);
-    overflow: hidden;
-    transition: box-shadow 0.15s, border-color 0.15s;
+    background:var(--card); border-radius:var(--radius);
+    border:1px solid var(--divider); box-shadow:var(--shadow-sm);
+    overflow:hidden; transition:box-shadow .15s,border-color .15s;
   }
-  .p-card:hover {
-    box-shadow: var(--shadow-md);
-    border-color: #D1D5DB;
-  }
+  .p-card:hover { box-shadow:var(--shadow-md); border-color:#D1D5DB; }
   .p-card-head {
-    padding: 14px 16px 10px;
-    cursor: pointer;
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
+    padding:14px 16px 10px; cursor:pointer;
+    display:flex; align-items:flex-start; gap:10px;
   }
-  .p-card-head .p-name {
-    font-size: 14px;
-    font-weight: 650;
-    flex: 1;
-    line-height: 1.4;
-  }
-  .p-card-head .p-agent {
-    font-size: 11px;
-    color: var(--text-muted);
-    background: #F3F4F6;
-    padding: 2px 8px;
-    border-radius: 4px;
-    white-space: nowrap;
-    flex-shrink: 0;
+  .p-card-head .p-name { font-size:14px; font-weight:650; flex:1; line-height:1.4; }
+  .p-agent {
+    font-size:11px; color:var(--text-muted); background:#F3F4F6;
+    padding:2px 8px; border-radius:4px; white-space:nowrap; flex-shrink:0;
   }
   .p-card-body {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.3s ease, padding 0.2s;
-    padding: 0 16px;
+    max-height:0; overflow:hidden; transition:max-height .3s ease,padding .2s;
+    padding:0 16px;
   }
-  .p-card-body.open {
-    max-height: 600px;
-    padding: 0 16px 14px;
+  .p-card-body.open { max-height:600px; padding:0 16px 14px; }
+  .task-list { list-style:none; }
+  .task-item {
+    display:flex; align-items:flex-start; gap:8px; padding:6px 0;
+    font-size:13px; border-bottom:1px solid #F3F4F6; line-height:1.4;
+    cursor:pointer;
   }
-  .p-card .task-list {
-    list-style: none;
+  .task-item:last-child { border-bottom:none; }
+  .task-item.done .task-text { text-decoration:line-through; color:var(--text-muted); }
+  .task-checkbox {
+    width:16px; height:16px; border-radius:4px; border:2px solid var(--divider);
+    flex-shrink:0; margin-top:1px; display:flex; align-items:center;
+    justify-content:center; cursor:pointer; transition:all .15s;
   }
-  .p-card .task-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 8px;
-    padding: 6px 0;
-    font-size: 13px;
-    border-bottom: 1px solid #F3F4F6;
-    line-height: 1.4;
-  }
-  .p-card .task-item:last-child { border-bottom: none; }
+  .task-checkbox:hover { border-color:var(--brand); }
+  .task-checkbox.checked { background:var(--brand); border-color:var(--brand); }
+  .task-checkbox.checked::after { content:'✓'; color:#fff; font-size:10px; font-weight:700; }
   .task-date {
-    display: inline-flex;
-    padding: 1px 7px;
-    border-radius: 4px;
-    font-size: 11px;
-    font-weight: 600;
-    white-space: nowrap;
-    flex-shrink: 0;
-    min-width: 48px;
-    text-align: center;
+    display:inline-flex; padding:1px 7px; border-radius:4px;
+    font-size:11px; font-weight:600; white-space:nowrap;
+    flex-shrink:0; min-width:48px; text-align:center;
   }
-  .d-today { background: var(--danger-light); color: var(--danger); }
-  .d-tomorrow { background: var(--warning-light); color: var(--warning); }
-  .d-week { background: var(--brand-light); color: var(--brand); }
-  .d-later { background: #F3F4F6; color: var(--text-muted); }
-  .task-text { flex: 1; }
-  .no-task {
-    font-size: 13px;
-    color: var(--text-muted);
-    font-style: italic;
-    padding: 4px 0;
-  }
+  .d-today { background:var(--danger-light); color:var(--danger); }
+  .d-tomorrow { background:var(--warning-light); color:var(--warning); }
+  .d-week { background:var(--brand-light); color:var(--brand); }
+  .d-later { background:#F3F4F6; color:var(--text-muted); }
+  .task-text { flex:1; }
+  .no-task { font-size:13px; color:var(--text-muted); font-style:italic; padding:4px 0; }
   .expand-hint {
-    font-size: 11px;
-    color: var(--text-muted);
-    text-align: center;
-    padding: 6px 0 10px;
-    cursor: pointer;
+    font-size:11px; color:var(--text-muted); text-align:center;
+    padding:6px 0 10px; cursor:pointer;
   }
-  .expand-hint:hover { color: var(--brand); }
+  .expand-hint:hover { color:var(--brand); }
+  .card-notes {
+    margin-top:10px; font-size:12px; color:var(--text-secondary); line-height:1.6;
+  }
 
-  /* Detail Panel (modal overlay) */
+  /* Overlay / Detail */
   .overlay {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.4);
-    z-index: 1000;
-    justify-content: center;
-    align-items: flex-start;
-    padding: 40px 16px;
-    overflow-y: auto;
+    display:none; position:fixed; inset:0; background:rgba(0,0,0,.4);
+    z-index:1000; justify-content:center; align-items:flex-start;
+    padding:40px 16px; overflow-y:auto;
   }
-  .overlay.show { display: flex; }
+  .overlay.show { display:flex; }
   .detail-panel {
-    background: var(--card);
-    border-radius: var(--radius);
-    max-width: 600px;
-    width: 100%;
-    box-shadow: var(--shadow-lg);
-    overflow: hidden;
-    animation: slideUp 0.25s ease;
+    background:var(--card); border-radius:var(--radius); max-width:600px;
+    width:100%; box-shadow:var(--shadow-lg); overflow:hidden;
+    animation:slideUp .25s ease;
   }
-  @keyframes slideUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
+  @keyframes slideUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
   .detail-header {
-    padding: 20px 24px 16px;
-    border-bottom: 1px solid var(--divider);
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
+    padding:20px 24px 16px; border-bottom:1px solid var(--divider);
+    display:flex; align-items:flex-start; justify-content:space-between;
   }
-  .detail-header h3 {
-    font-size: 18px;
-    font-weight: 700;
-  }
-  .detail-header .meta {
-    font-size: 12px;
-    color: var(--text-secondary);
-    margin-top: 4px;
-  }
+  .detail-header h3 { font-size:18px; font-weight:700; }
+  .detail-header .meta { font-size:12px; color:var(--text-secondary); margin-top:4px; }
   .detail-close {
-    width: 32px; height: 32px;
-    border-radius: 50%;
-    border: none;
-    background: #F3F4F6;
-    cursor: pointer;
-    font-size: 16px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    transition: background 0.15s;
+    width:32px; height:32px; border-radius:50%; border:none;
+    background:#F3F4F6; cursor:pointer; font-size:16px;
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0; transition:background .15s;
   }
-  .detail-close:hover { background: #E5E7EB; }
-  .detail-body {
-    padding: 20px 24px;
-  }
-  .detail-section {
-    margin-bottom: 20px;
-  }
-  .detail-section:last-child { margin-bottom: 0; }
+  .detail-close:hover { background:#E5E7EB; }
+  .detail-body { padding:20px 24px; }
+  .detail-section { margin-bottom:20px; }
+  .detail-section:last-child { margin-bottom:0; }
   .detail-section h4 {
-    font-size: 13px;
-    font-weight: 700;
-    color: var(--text-secondary);
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    margin-bottom: 10px;
+    font-size:13px; font-weight:700; color:var(--text-secondary);
+    text-transform:uppercase; letter-spacing:.5px; margin-bottom:10px;
   }
   .detail-task {
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    padding: 8px 0;
-    border-bottom: 1px solid #F3F4F6;
-    font-size: 14px;
+    display:flex; align-items:flex-start; gap:10px; padding:8px 0;
+    border-bottom:1px solid #F3F4F6; font-size:14px; cursor:pointer;
   }
-  .detail-task:last-child { border-bottom: none; }
+  .detail-task:last-child { border-bottom:none; }
   .detail-task .dt-checkbox {
-    width: 18px; height: 18px;
-    border-radius: 4px;
-    border: 2px solid var(--divider);
-    flex-shrink: 0;
-    margin-top: 1px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.15s;
+    width:18px; height:18px; border-radius:4px; border:2px solid var(--divider);
+    flex-shrink:0; margin-top:1px; cursor:pointer;
+    display:flex; align-items:center; justify-content:center; transition:all .15s;
   }
-  .detail-task .dt-checkbox:hover { border-color: var(--brand); }
-  .detail-task .dt-checkbox.checked {
-    background: var(--brand);
-    border-color: var(--brand);
-  }
-  .detail-task .dt-checkbox.checked::after {
-    content: '✓';
-    color: #fff;
-    font-size: 11px;
-    font-weight: 700;
-  }
-  .detail-task.done .dt-text { text-decoration: line-through; color: var(--text-muted); }
-  .detail-task .dt-text { flex: 1; }
-  .detail-schedule-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 13px;
-  }
-  .detail-schedule-table th {
-    text-align: left;
-    padding: 8px 10px;
-    background: #F9FAFB;
-    font-weight: 600;
-    font-size: 12px;
-    color: var(--text-secondary);
-    border-bottom: 1px solid var(--divider);
-  }
-  .detail-schedule-table td {
-    padding: 8px 10px;
-    border-bottom: 1px solid #F3F4F6;
-  }
-  .detail-progress-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 13px;
-  }
+  .detail-task .dt-checkbox:hover { border-color:var(--brand); }
+  .detail-task .dt-checkbox.checked { background:var(--brand); border-color:var(--brand); }
+  .detail-task .dt-checkbox.checked::after { content:'✓'; color:#fff; font-size:11px; font-weight:700; }
+  .detail-task.done .dt-text { text-decoration:line-through; color:var(--text-muted); }
+  .detail-task .dt-text { flex:1; }
+  .detail-progress-table { width:100%; border-collapse:collapse; font-size:13px; }
   .detail-progress-table th {
-    text-align: left;
-    padding: 8px 10px;
-    background: #F9FAFB;
-    font-weight: 600;
-    font-size: 12px;
-    color: var(--text-secondary);
-    border-bottom: 1px solid var(--divider);
+    text-align:left; padding:8px 10px; background:#F9FAFB;
+    font-weight:600; font-size:12px; color:var(--text-secondary);
+    border-bottom:1px solid var(--divider);
   }
-  .detail-progress-table td {
-    padding: 8px 10px;
-    border-bottom: 1px solid #F3F4F6;
-  }
-
-  /* Separator */
-  .sep {
-    height: 1px;
-    background: var(--divider);
-    margin: 8px 0 20px;
-  }
-
-  /* Status Tag */
+  .detail-progress-table td { padding:8px 10px; border-bottom:1px solid #F3F4F6; }
   .status-tag {
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    padding: 2px 8px;
-    border-radius: 4px;
-    font-size: 11px;
-    font-weight: 600;
+    display:inline-flex; align-items:center; gap:4px;
+    padding:2px 8px; border-radius:4px; font-size:11px; font-weight:600;
   }
-  .st-signed { background: var(--success-light); color: #16A34A; }
-  .st-pending { background: var(--warning-light); color: #D97706; }
+  .st-signed { background:var(--success-light); color:#16A34A; }
+  .st-pending { background:var(--warning-light); color:#D97706; }
+  .sep { height:1px; background:var(--divider); margin:8px 0 20px; }
+
+  /* Setup & Settings Modal */
+  .modal-overlay {
+    display:none; position:fixed; inset:0; background:rgba(0,0,0,.5);
+    z-index:2000; justify-content:center; align-items:center; padding:16px;
+  }
+  .modal-overlay.show { display:flex; }
+  .modal-box {
+    background:var(--card); border-radius:var(--radius); padding:28px;
+    max-width:400px; width:100%; box-shadow:var(--shadow-lg);
+    animation:slideUp .25s ease;
+  }
+  .modal-box h3 { font-size:17px; font-weight:700; margin-bottom:8px; }
+  .modal-box p { font-size:13px; color:var(--text-secondary); margin-bottom:16px; line-height:1.6; }
+  .modal-box input {
+    width:100%; padding:10px 12px; border:1.5px solid var(--divider);
+    border-radius:var(--radius-sm); font-size:14px; outline:none;
+    transition:border-color .15s;
+  }
+  .modal-box input:focus { border-color:var(--brand); }
+  .modal-btns { display:flex; gap:8px; margin-top:16px; justify-content:flex-end; }
+  .modal-btns button {
+    padding:8px 20px; border-radius:var(--radius-sm); font-size:14px;
+    font-weight:600; cursor:pointer; border:1.5px solid var(--divider);
+    background:var(--card); color:var(--text-secondary); transition:all .15s;
+  }
+  .modal-btns button:hover { border-color:var(--brand); color:var(--brand); }
+  .modal-btns button.primary { background:var(--brand); color:#fff; border-color:var(--brand); }
+  .modal-btns button.primary:hover { opacity:.9; }
+  .setup-status { font-size:12px; margin-top:8px; min-height:18px; }
+  .setup-status.ok { color:var(--success); }
+  .setup-status.err { color:var(--danger); }
+
+  /* Sync Bar */
+  .sync-bar {
+    position:fixed; bottom:0; left:0; right:0;
+    background:rgba(255,255,255,.95); backdrop-filter:blur(8px);
+    border-top:1px solid var(--divider); padding:6px 16px;
+    font-size:11px; color:var(--text-muted); text-align:center;
+    z-index:500; display:flex; align-items:center; justify-content:center; gap:6px;
+  }
+  .sync-dot { width:6px; height:6px; border-radius:50%; display:inline-block; }
+  .sync-dot.ok { background:var(--success); }
+  .sync-dot.saving { background:var(--warning); animation:pulse .8s infinite; }
+  .sync-dot.err { background:var(--danger); }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
+
+  /* Loading */
+  .loading {
+    text-align:center; padding:60px 20px; color:var(--text-muted); font-size:15px;
+  }
+  .loading-spinner {
+    width:32px; height:32px; border:3px solid var(--divider);
+    border-top-color:var(--brand); border-radius:50%;
+    animation:spin .8s linear infinite; margin:0 auto 16px;
+  }
+  @keyframes spin { to{transform:rotate(360deg)} }
 
   /* Responsive */
-  @media (max-width: 768px) {
-    .stats-row { grid-template-columns: repeat(2, 1fr); gap: 8px; }
-    .group-content { grid-template-columns: 1fr; }
-    .stat-card .value { font-size: 22px; }
+  @media (max-width:768px) {
+    .stats-row { grid-template-columns:repeat(2,1fr); gap:8px; }
+    .group-content { grid-template-columns:1fr; }
+    .stat-card .value { font-size:22px; }
   }
-  @media (max-width: 480px) {
-    .app { padding: 14px 10px 40px; }
-    .header h1 { font-size: 18px; }
-    .detail-panel { margin: 16px; }
-    .detail-header { padding: 16px; }
-    .detail-body { padding: 16px; }
+  @media (max-width:480px) {
+    .app { padding:14px 10px 80px; }
+    .header h1 { font-size:18px; }
+    .detail-panel { margin:16px; }
+    .detail-header { padding:16px; }
+    .detail-body { padding:16px; }
   }
-
-  /* Print */
   @media print {
-    body { background: #fff; }
-    .overlay { display: none !important; }
-    .p-card-body { max-height: none !important; padding: 0 16px 14px !important; }
-    .group-content { max-height: none !important; opacity: 1 !important; }
+    body { background:#fff; }
+    .overlay,.modal-overlay,.sync-bar { display:none!important; }
+    .p-card-body { max-height:none!important; padding:0 16px 14px!important; }
+    .group-content { max-height:none!important; opacity:1!important; }
   }
 </style>
 </head>
 <body>
-<main class="app">
 
+<!-- Loading -->
+<div class="loading" id="loadingView">
+  <div class="loading-spinner"></div>
+  正在加载数据...
+</div>
+
+<!-- Setup Modal -->
+<div class="modal-overlay" id="setupModal">
+  <div class="modal-box">
+    <h3>🔑 连接 GitHub</h3>
+    <p>请输入你的 GitHub Personal Access Token，用于同步看板数据。<br>Token 仅保存在你的浏览器本地。</p>
+    <input type="password" id="setupTokenInput" placeholder="ghp_xxxxxxxxxxxx">
+    <div class="setup-status" id="setupStatus"></div>
+    <div class="modal-btns">
+      <button onclick="closeSetup()">取消</button>
+      <button class="primary" onclick="verifyAndSaveToken()">验证并保存</button>
+    </div>
+  </div>
+</div>
+
+<!-- Settings Modal -->
+<div class="modal-overlay" id="settingsModal">
+  <div class="modal-box">
+    <h3>⚙️ 设置</h3>
+    <p>GitHub Token（用于同步打勾状态）</p>
+    <input type="password" id="settingsTokenInput" placeholder="ghp_xxxxxxxxxxxx">
+    <div class="setup-status" id="settingsStatus"></div>
+    <div class="modal-btns">
+      <button onclick="clearToken()" style="color:var(--danger);border-color:var(--danger);">清除 Token</button>
+      <button onclick="closeSettings()">关闭</button>
+      <button class="primary" onclick="updateToken()">保存</button>
+    </div>
+  </div>
+</div>
+
+<!-- Main App -->
+<main class="app" id="mainApp" style="display:none;">
   <!-- Header -->
   <div class="header">
     <div class="header-left">
-      <h1>凡哥项目看板</h1>
-      <div class="date">2026年8月25日 星期二</div>
+      <h1>工作日程</h1>
+      <div class="date" id="headerDate"></div>
     </div>
     <div class="header-right">
-      <a href="https://mi1kshake9124.github.io/cal-schedule/" target="_blank" rel="noopener noreferrer" style="text-decoration:none;">
-        <button class="tab-btn" style="background:var(--brand);color:#fff;border-color:var(--brand);cursor:pointer;display:flex;align-items:center;gap:6px;">
-          <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-          日历视图
-        </button>
+      <button class="icon-btn" onclick="openSettings()" title="设置">⚙</button>
+      <a class="cal-link" href="https://mi1kshake9124.github.io/cal-schedule/" target="_blank" rel="noopener noreferrer">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        日历视图
       </a>
     </div>
   </div>
 
-  <!-- Stats -->
-  <div class="stats-row">
-    <div class="stat-card" onclick="statClick('signed')">
-      <div class="label">已签约</div>
-      <div class="value">9</div>
-      <div class="sub">施工3 · 设计5 · 未设计1</div>
-    </div>
-    <div class="stat-card" onclick="statClick('unsigned')">
-      <div class="label">未签合同</div>
-      <div class="value">2</div>
-      <div class="sub">跟进中</div>
-    </div>
-    <div class="stat-card" onclick="statClick('today')">
-      <div class="label">今日待办</div>
-      <div class="value" style="color:var(--danger)">4</div>
-      <div class="sub">跨 3 个项目</div>
-    </div>
-    <div class="stat-card" onclick="openWeekView()">
-      <div class="label">本周待办</div>
-      <div class="value">12</div>
-      <div class="sub">截至周日 8/31</div>
-    </div>
-  </div>
-
-  <!-- Today Panel -->
-  <div class="today-panel">
-    <div class="today-title">
-      <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-      今日待办（8月25日）
-    </div>
-    <div class="today-items" id="todayItems">
-      <div class="today-item" onclick="toggleTodayItem(this)">
-        <div class="ti-icon"></div>
-        <div>
-          <div class="ti-project">天府九里</div>
-          <div class="ti-task">先跟定制设计师沟通客户要求</div>
-        </div>
-      </div>
-      <div class="today-item" onclick="toggleTodayItem(this)">
-        <div class="ti-icon"></div>
-        <div>
-          <div class="ti-project">天府九里</div>
-          <div class="ti-task">给客户打电话沟通定制方案</div>
-        </div>
-      </div>
-      <div class="today-item" onclick="toggleTodayItem(this)">
-        <div class="ti-icon"></div>
-        <div>
-          <div class="ti-project">建发云</div>
-          <div class="ti-task">找效果图公司要模型</div>
-        </div>
-      </div>
-      <div class="today-item" onclick="toggleTodayItem(this)">
-        <div class="ti-icon"></div>
-        <div>
-          <div class="ti-project">天府时区</div>
-          <div class="ti-task">跟客户约周日的时间</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Tabs -->
-  <div class="tab-bar" id="tabBar">
-    <button class="tab-btn active" data-tab="all">全部项目</button>
-    <button class="tab-btn" data-tab="signed">已签约</button>
-    <button class="tab-btn" data-tab="unsigned">未签合同</button>
-  </div>
-
-  <!-- Signed Projects -->
-  <div class="section" id="section-signed">
-    <div class="section-head">
-      <h2>已签约项目</h2>
-      <span class="badge" style="background:var(--success-light);color:#16A34A;">9</span>
-    </div>
-
-    <!-- 施工中 -->
-    <div class="group-header" onclick="toggleGroup(this)">
-      <span class="group-dot dot-construction"></span>
-      <span class="group-name">施工中</span>
-      <span class="group-count">3个项目</span>
-      <span class="group-arrow">▼</span>
-    </div>
-    <div class="group-content">
-      <div class="p-card">
-        <div class="p-card-head" onclick="openDetail('tianfu')">
-          <div class="p-name">明信·天府壹号 9-1-301</div>
-          <span class="p-agent">业务员 —</span>
-        </div>
-        <div class="p-card-body" id="body-tianfu">
-          <ul class="task-list">
-            <li class="task-item"><span class="task-date d-week">周四 8/28</span><span class="task-text">确认楼梯地板安装</span></li>
-            <li class="task-item"><span class="task-date d-week">周四 8/28</span><span class="task-text">确认石材安装</span></li>
-            <li class="task-item"><span class="task-date d-week">周五 8/29</span><span class="task-text">与艺术漆沟通，安排进场</span></li>
-            <li class="task-item"><span class="task-date d-later">周一 9/1</span><span class="task-text">跟定制确认安装时间</span></li>
-          </ul>
-        </div>
-        <div class="expand-hint" onclick="toggleBody('body-tianfu', this)">展开详情 ▾</div>
-      </div>
-      <div class="p-card">
-        <div class="p-card-head" onclick="openDetail('mingyue')">
-          <div class="p-name">电建·洺悦玺 21-2-102</div>
-          <span class="p-agent">业务员 —</span>
-        </div>
-        <div class="p-card-body" id="body-mingyue">
-          <ul class="task-list">
-            <li class="task-item"><span class="task-date d-today">今天</span><span class="task-text">确认定制方案、色板和报价</span></li>
-            <li class="task-item"><span class="task-date d-week">周四 8/28</span><span class="task-text">客户到店确认方案</span></li>
-          </ul>
-        </div>
-        <div class="expand-hint" onclick="toggleBody('body-mingyue', this)">展开详情 ▾</div>
-      </div>
-      <div class="p-card">
-        <div class="p-card-head" onclick="openDetail('qingyang')">
-          <div class="p-name">青羊润府 13-1-1301</div>
-          <span class="p-agent">业务员 —</span>
-        </div>
-        <div class="p-card-body" id="body-qingyang">
-          <ul class="task-list">
-            <li class="task-item"><span class="task-date d-tomorrow">明天</span><span class="task-text">选软装挂画</span></li>
-          </ul>
-        </div>
-        <div class="expand-hint" onclick="toggleBody('body-qingyang', this)">展开详情 ▾</div>
-      </div>
-    </div>
-
-    <!-- 设计中 -->
-    <div class="group-header" onclick="toggleGroup(this)">
-      <span class="group-dot dot-design"></span>
-      <span class="group-name">设计中</span>
-      <span class="group-count">5个项目</span>
-      <span class="group-arrow">▼</span>
-    </div>
-    <div class="group-content">
-      <div class="p-card">
-        <div class="p-card-head" onclick="openDetail('tianfu9li')">
-          <div class="p-name">天府九里 13-1-1504</div>
-          <span class="p-agent">业务员 —</span>
-        </div>
-        <div class="p-card-body" id="body-tianfu9li">
-          <ul class="task-list">
-            <li class="task-item"><span class="task-date d-today">今天</span><span class="task-text">先跟定制设计师沟通客户要求</span></li>
-            <li class="task-item"><span class="task-date d-today">今天</span><span class="task-text">给客户打电话沟通定制方案</span></li>
-          </ul>
-        </div>
-        <div class="expand-hint" onclick="toggleBody('body-tianfu9li', this)">展开详情 ▾</div>
-      </div>
-      <div class="p-card">
-        <div class="p-card-head" onclick="openDetail('jianfa')">
-          <div class="p-name">建发云 12-902</div>
-          <span class="p-agent">业务员 —</span>
-        </div>
-        <div class="p-card-body" id="body-jianfa">
-          <ul class="task-list">
-            <li class="task-item"><span class="task-date d-today">今天</span><span class="task-text">找效果图公司要模型</span></li>
-            <li class="task-item"><span class="task-date d-week">周四 8/28</span><span class="task-text">效果图改完发给客户</span></li>
-          </ul>
-        </div>
-        <div class="expand-hint" onclick="toggleBody('body-jianfa', this)">展开详情 ▾</div>
-      </div>
-      <div class="p-card">
-        <div class="p-card-head" onclick="openDetail('shiqu')">
-          <div class="p-name">天府时区 9-2-502</div>
-          <span class="p-agent">业务员 —</span>
-        </div>
-        <div class="p-card-body" id="body-shiqu">
-          <ul class="task-list">
-            <li class="task-item"><span class="task-date d-today">今天</span><span class="task-text">跟客户约周日的时间</span></li>
-            <li class="task-item"><span class="task-date d-week">周五 8/29</span><span class="task-text">完成平面方案和设计资料</span></li>
-            <li class="task-item"><span class="task-date d-week">周日 8/31</span><span class="task-text">与客户见面沟通</span></li>
-          </ul>
-        </div>
-        <div class="expand-hint" onclick="toggleBody('body-shiqu', this)">展开详情 ▾</div>
-      </div>
-      <div class="p-card">
-        <div class="p-card-head" onclick="openDetail('yuejinsha')">
-          <div class="p-name">越秀阅今沙 3-1-302</div>
-          <span class="p-agent">业务员 —</span>
-        </div>
-        <div class="p-card-body" id="body-yuejinsha">
-          <ul class="task-list">
-            <li class="task-item"><span class="task-date d-tomorrow">明天</span><span class="task-text">出书房平面方案</span></li>
-            <li class="task-item"><span class="task-date d-week">周末</span><span class="task-text">等客户确认折叠门方案后跟进</span></li>
-            <li class="task-item"><span class="task-date d-later">后续</span><span class="task-text">准备设计工作</span></li>
-          </ul>
-        </div>
-        <div class="expand-hint" onclick="toggleBody('body-yuejinsha', this)">展开详情 ▾</div>
-      </div>
-      <div class="p-card">
-        <div class="p-card-head" onclick="openDetail('binjiang')">
-          <div class="p-name">滨江丽城 126-3102</div>
-          <span class="p-agent">业务员 —</span>
-        </div>
-        <div class="p-card-body" id="body-binjiang">
-          <ul class="task-list">
-            <li class="task-item"><span class="no-task">暂无待办事项</span></li>
-          </ul>
-        </div>
-        <div class="expand-hint" onclick="toggleBody('body-binjiang', this)">展开详情 ▾</div>
-      </div>
-    </div>
-
-    <!-- 未设计 -->
-    <div class="group-header" onclick="toggleGroup(this)">
-      <span class="group-dot dot-idle"></span>
-      <span class="group-name">未设计</span>
-      <span class="group-count">1个项目</span>
-      <span class="group-arrow">▼</span>
-    </div>
-    <div class="group-content">
-      <div class="p-card">
-        <div class="p-card-head" onclick="openDetail('guanghua')">
-          <div class="p-name">光华樾府 2-2-1101</div>
-          <span class="p-agent">业务员 —</span>
-        </div>
-        <div class="p-card-body" id="body-guanghua">
-          <ul class="task-list">
-            <li class="task-item"><span class="no-task">暂无待办事项</span></li>
-          </ul>
-        </div>
-        <div class="expand-hint" onclick="toggleBody('body-guanghua', this)">展开详情 ▾</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="sep"></div>
-
-  <!-- Unsigned Projects -->
-  <div class="section" id="section-unsigned">
-    <div class="section-head">
-      <h2>未签合同项目</h2>
-      <span class="badge" style="background:var(--warning-light);color:#D97706;">2</span>
-    </div>
-    <div class="group-content">
-      <div class="p-card">
-        <div class="p-card-head" onclick="openDetail('gongyuan')">
-          <div class="p-name">公园翠屿</div>
-          <span class="p-agent" style="background:var(--brand-light);color:var(--brand);">周海燕</span>
-        </div>
-        <div class="p-card-body" id="body-gongyuan">
-          <ul class="task-list">
-            <li class="task-item"><span class="task-date d-later">9月</span><span class="task-text">客户父母从新疆到成都，安排到店</span></li>
-          </ul>
-          <div style="margin-top:10px;font-size:12px;color:var(--text-secondary);line-height:1.6;">
-            已做过方案，已见面沟通两次。客户需与新疆父母沟通，父母9月到成都后到店。
-          </div>
-        </div>
-        <div class="expand-hint" onclick="toggleBody('body-gongyuan', this)">展开详情 ▾</div>
-      </div>
-      <div class="p-card">
-        <div class="p-card-head" onclick="openDetail('longhu')">
-          <div class="p-name">龙湖粼湖天境</div>
-          <span class="p-agent" style="background:var(--brand-light);color:var(--brand);">王宣</span>
-        </div>
-        <div class="p-card-body" id="body-longhu">
-          <ul class="task-list">
-            <li class="task-item"><span class="task-date d-week">周六 8/30</span><span class="task-text">下午客户来公司沟通</span></li>
-            <li class="task-item"><span class="task-date d-later">待定</span><span class="task-text">去现场看（时间待定）</span></li>
-          </ul>
-          <div style="margin-top:10px;font-size:12px;color:var(--text-secondary);line-height:1.6;">
-            已做过方案，已见面沟通一次。客户对家具选品有异议，约去现场看。
-          </div>
-        </div>
-        <div class="expand-hint" onclick="toggleBody('body-longhu', this)">展开详情 ▾</div>
-      </div>
-    </div>
-  </div>
-
+  <!-- Dynamic Content -->
+  <div id="boardContent"></div>
 </main>
 
 <!-- Detail Overlay -->
@@ -877,321 +396,464 @@
   </div>
 </div>
 
+<!-- Sync Bar -->
+<div class="sync-bar" id="syncBar">
+  <span class="sync-dot ok" id="syncDot"></span>
+  <span id="syncText">就绪</span>
+</div>
+
 <script>
-  // Toggle today item
-  function toggleTodayItem(el) {
-    el.classList.toggle('done');
-    const icon = el.querySelector('.ti-icon');
-    icon.classList.toggle('checked');
-  }
+// ======================== Config ========================
+const GITHUB_OWNER = 'mi1kshake9124';
+const GITHUB_REPO = 'work-schedule';
+const DATA_FILE = 'data.json';
+const COMPLETED_FILE = 'completed.json';
 
-  // Toggle card body
-  function toggleBody(id, hint) {
-    const body = document.getElementById(id);
-    if (body.classList.contains('open')) {
-      body.classList.remove('open');
-      hint.textContent = '展开详情 ▾';
-    } else {
-      body.classList.add('open');
-      hint.textContent = '收起 ▴';
-    }
-  }
+// ======================== State ========================
+let projectData = null;
+let completed = new Set();
+let currentTab = 'all';
 
-  // Toggle group
-  function toggleGroup(header) {
-    header.classList.toggle('collapsed');
-    const content = header.nextElementSibling;
-    content.classList.toggle('hidden');
-  }
+// ======================== GitHub API ========================
+function getToken() { return localStorage.getItem('github_pat') || ''; }
 
-  // Tab filter
-  document.getElementById('tabBar').addEventListener('click', function(e) {
-    if (!e.target.classList.contains('tab-btn')) return;
-    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-    e.target.classList.add('active');
-    const tab = e.target.dataset.tab;
-    document.getElementById('section-signed').style.display = (tab === 'unsigned') ? 'none' : '';
-    document.getElementById('section-unsigned').style.display = (tab === 'signed') ? 'none' : '';
-    document.querySelector('.sep').style.display = (tab === 'all') ? '' : 'none';
+async function ghFetch(path, token) {
+  const h = token ? {'Authorization':'token '+token} : {};
+  const r = await fetch('https://api.github.com/repos/'+GITHUB_OWNER+'/'+GITHUB_REPO+'/contents/'+path, {headers:h});
+  if (!r.ok) throw new Error(r.status);
+  return await r.json();
+}
+
+async function ghPut(path, content, message, sha, token) {
+  const r = await fetch('https://api.github.com/repos/'+GITHUB_OWNER+'/'+GITHUB_REPO+'/contents/'+path, {
+    method:'PUT',
+    headers:{'Authorization':'token '+token,'Content-Type':'application/json'},
+    body:JSON.stringify({message,content,sha,branch:'main'})
   });
+  if (!r.ok) { const t=await r.text(); throw new Error(r.status+': '+t); }
+  return await r.json();
+}
 
-  // Project detail data
-  const projectData = {
-    tianfu: {
-      name: '明信·天府壹号 9-1-301',
-      meta: '施工中 · 业务员 —',
-      tasks: [
-        { date: '周四 8/28', dateType: 'd-week', text: '确认楼梯地板安装' },
-        { date: '周四 8/28', dateType: 'd-week', text: '确认石材安装' },
-        { date: '周五 8/29', dateType: 'd-week', text: '与艺术漆沟通，安排进场' },
-        { date: '周一 9/1', dateType: 'd-later', text: '跟定制确认安装时间' },
-      ],
-      schedule: [],
-      progress: []
-    },
-    mingyue: {
-      name: '电建·洺悦玺 21-2-102',
-      meta: '施工中 · 业务员 —',
-      tasks: [
-        { date: '今天', dateType: 'd-today', text: '确认定制方案、色板和报价' },
-        { date: '周五 8/29', dateType: 'd-week', text: '客户到店看方案' },
-      ],
-      schedule: [],
-      progress: []
-    },
-    qingyang: {
-      name: '青羊润府 13-1-1301',
-      meta: '施工中 · 业务员 —',
-      tasks: [
-        { date: '明天', dateType: 'd-tomorrow', text: '选软装挂画' },
-      ],
-      schedule: [],
-      progress: []
-    },
-    tianfu9li: {
-      name: '天府九里 13-1-1504',
-      meta: '设计中 · 业务员 —',
-      tasks: [
-        { date: '今天', dateType: 'd-today', text: '先跟定制设计师沟通客户要求' },
-        { date: '今天', dateType: 'd-today', text: '给客户打电话沟通定制方案' },
-      ],
-      schedule: [],
-      progress: []
-    },
-    jianfa: {
-      name: '建发云 12-902',
-      meta: '设计中 · 业务员 —',
-      tasks: [
-        { date: '今天', dateType: 'd-today', text: '找效果图公司要模型' },
-        { date: '周四 8/28', dateType: 'd-week', text: '效果图改完发给客户' },
-      ],
-      schedule: [],
-      progress: []
-    },
-    shiqu: {
-      name: '天府时区 9-2-502',
-      meta: '设计中 · 业务员 —',
-      tasks: [
-        { date: '今天', dateType: 'd-today', text: '跟客户约周日的时间' },
-        { date: '周五 8/29', dateType: 'd-week', text: '完成平面方案和设计资料' },
-        { date: '周日 8/31', dateType: 'd-week', text: '与客户见面沟通' },
-      ],
-      schedule: [],
-      progress: [
-        { cat: '平面方案', task: '平面布局制作', date: '8/25 - 8/29' },
-        { cat: '平面方案', task: '设计资料准备', date: '8/25 - 8/29' },
-        { cat: '平面方案', task: '平面方案沟通', date: '8/31（周日）' },
-        { cat: '设计资料', task: '设计效果对图资料', date: '待更新' },
-        { cat: '效果图设计', task: '效果图制作', date: '待更新' },
-        { cat: '定制方案', task: '定制方案制作', date: '待更新' },
-        { cat: '其他设备', task: '各商家出方案报价', date: '待更新' },
-      ]
-    },
-    yuejinsha: {
-      name: '越秀阅今沙 3-1-302',
-      meta: '设计中 · 业务员 —',
-      tasks: [
-        { date: '明天', dateType: 'd-tomorrow', text: '出书房平面方案' },
-        { date: '周末', dateType: 'd-week', text: '等客户确认折叠门方案后跟进' },
-        { date: '后续', dateType: 'd-later', text: '准备设计工作' },
-      ],
-      schedule: [],
-      progress: []
-    },
-    binjiang: {
-      name: '滨江丽城 126-3102',
-      meta: '设计中 · 业务员 —',
-      tasks: [],
-      schedule: [],
-      progress: []
-    },
-    guanghua: {
-      name: '光华樾府 2-2-1101',
-      meta: '未设计 · 业务员 —',
-      tasks: [],
-      schedule: [],
-      progress: []
-    },
-    gongyuan: {
-      name: '公园翠屿',
-      meta: '未签合同 · 业务员：周海燕',
-      tasks: [
-        { date: '9月', dateType: 'd-later', text: '客户父母从新疆到成都，安排到店' },
-      ],
-      schedule: [],
-      progress: [],
-      notes: '已做过方案，已见面沟通两次。客户需与新疆父母沟通，父母9月到成都后到店。'
-    },
-    longhu: {
-      name: '龙湖粼湖天境',
-      meta: '未签合同 · 业务员：王宣',
-      tasks: [
-        { date: '周六 8/30', dateType: 'd-week', text: '下午客户来公司沟通' },
-        { date: '待定', dateType: 'd-later', text: '去现场看（时间待定）' },
-      ],
-      schedule: [],
-      progress: [],
-      notes: '已做过方案，已见面沟通一次。客户对家具选品有异议，约去现场看。'
+async function loadData() {
+  const token = getToken();
+  const dataRaw = await ghFetch(DATA_FILE, token);
+  projectData = JSON.parse(atob(dataRaw.content));
+  try {
+    const compRaw = await ghFetch(COMPLETED_FILE, token);
+    const arr = JSON.parse(atob(compRaw.content));
+    completed = new Set(Array.isArray(arr) ? arr : []);
+  } catch(e) { completed = new Set(); }
+}
+
+async function saveCompleted() {
+  const token = getToken();
+  if (!token) { localStorage.setItem('completed_local',JSON.stringify([...completed])); return; }
+  setSync('saving','保存中...');
+  let sha = '';
+  try {
+    const cur = await ghFetch(COMPLETED_FILE, token);
+    sha = cur.sha;
+  } catch(e) {}
+  const arr = [...completed];
+  const content = btoa(unescape(encodeURIComponent(JSON.stringify(arr,null,2))));
+  try {
+    await ghPut(COMPLETED_FILE, content, '更新完成状态', sha, token);
+    localStorage.setItem('completed_local',JSON.stringify(arr));
+    const now = new Date();
+    setSync('ok','已同步 · '+now.getHours().toString().padStart(2,'0')+':'+now.getMinutes().toString().padStart(2,'0'));
+  } catch(e) {
+    setSync('err','同步失败，已本地保存');
+    localStorage.setItem('completed_local',JSON.stringify(arr));
+  }
+}
+
+function setSync(state, text) {
+  const dot = document.getElementById('syncDot');
+  const txt = document.getElementById('syncText');
+  dot.className = 'sync-dot '+state;
+  txt.textContent = text;
+}
+
+// ======================== Date Utils ========================
+function todayStr() {
+  const n=new Date(); return n.getFullYear()+'-'+String(n.getMonth()+1).padStart(2,'0')+'-'+String(n.getDate()).padStart(2,'0');
+}
+function fmtDate(dateStr) {
+  if (!dateStr) return {label:'待定',cls:'d-later'};
+  const today=new Date(); today.setHours(0,0,0,0);
+  const d=new Date(dateStr+'T00:00:00'); 
+  const diff=Math.round((d-today)/864e5);
+  const mm=d.getMonth()+1, dd=d.getDate();
+  const ds=mm+'/'+dd;
+  if (diff===0) return {label:'今天 '+mm+'/'+dd, cls:'d-today'};
+  if (diff===1) return {label:'明天 '+ds, cls:'d-tomorrow'};
+  if (diff>1 && diff<=6) {
+    const wd=['周日','周一','周二','周三','周四','周五','周六'];
+    return {label:wd[d.getDay()]+' '+ds, cls:'d-week'};
+  }
+  if (diff>0 && diff<=10) {
+    const todayD=today.getDay(); const tgtD=d.getDay();
+    if (tgtD===0||tgtD===6) return {label:'周末 '+ds, cls:'d-week'};
+  }
+  if (diff<0) return {label:ds+' (已过)', cls:'d-later'};
+  if (mm<=today.getMonth()+1) return {label:ds, cls:'d-later'};
+  return {label:mm+'月'+dd+'日', cls:'d-later'};
+}
+
+// ======================== Render ========================
+function render() {
+  if (!projectData) return;
+  const today = todayStr();
+  const projs = projectData.projects;
+  const todayD = new Date(); todayD.setHours(0,0,0,0);
+  const weekEnd = new Date(todayD); weekEnd.setDate(weekEnd.getDate()+6);
+
+  // Date header
+  const wd=['星期日','星期一','星期二','星期三','星期四','星期五','星期六'];
+  const td=new Date();
+  document.getElementById('headerDate').textContent = td.getFullYear()+'年'+(td.getMonth()+1)+'月'+td.getDate()+'日 '+wd[td.getDay()];
+
+  // Categorize
+  const signed=[], unsigned=[];
+  let cntConst=0, cntDes=0, cntIdle=0;
+  const todayTasks=[], weekTasks=[];
+
+  for (const [k,p] of Object.entries(projs)) {
+    if (p.status==='未签合同') { unsigned.push([k,p]); }
+    else {
+      signed.push([k,p]);
+      if (p.status==='施工中') cntConst++;
+      else if (p.status==='设计中') cntDes++;
+      else cntIdle++;
     }
-  };
+    for (const t of p.tasks) {
+      if (!t.date) { weekTasks.push({project:p.name,taskId:t.id,text:t.text,date:'',dateType:'d-later'}); continue; }
+      const td2=new Date(t.date+'T00:00:00');
+      if (t.date===today) todayTasks.push({project:p.name,taskId:t.id,text:t.text,date:t.date});
+      if (td2>=todayD && td2<=weekEnd) {
+        const df=fmtDate(t.date);
+        weekTasks.push({project:p.name,taskId:t.id,text:t.text,date:t.date,dateType:df.cls});
+      }
+    }
+  }
+  weekTasks.sort((a,b)=>{if(!a.date)return 1;if(!b.date)return -1;return a.date.localeCompare(b.date);});
 
-  function openDetail(key) {
-    const p = projectData[key];
-    if (!p) return;
-    document.getElementById('detailTitle').textContent = p.name;
-    document.getElementById('detailMeta').innerHTML = '<span class="status-tag ' + (p.meta.includes('未签') ? 'st-pending' : 'st-signed') + '">' + p.meta.split('·')[0].trim() + '</span> ' + p.meta;
+  // Build HTML
+  let html = '';
 
-    let html = '';
+  // Stats
+  html += '<div class="stats-row">';
+  html += '<div class="stat-card" onclick="statClick(\'signed\')"><div class="label">已签约</div><div class="value">'+signed.length+'</div><div class="sub">施工'+cntConst+' · 设计'+cntDes+' · 未设计'+cntIdle+'</div></div>';
+  html += '<div class="stat-card" onclick="statClick(\'unsigned\')"><div class="label">未签合同</div><div class="value">'+unsigned.length+'</div><div class="sub">跟进中</div></div>';
+  html += '<div class="stat-card" onclick="statClick(\'today\')"><div class="label">今日待办</div><div class="value" style="color:var(--danger)">'+todayTasks.length+'</div><div class="sub">跨 '+new Set(todayTasks.map(t=>t.project)).size+' 个项目</div></div>';
+  html += '<div class="stat-card" onclick="openWeekView()"><div class="label">本周待办</div><div class="value">'+weekTasks.length+'</div><div class="sub">截至周日</div></div>';
+  html += '</div>';
 
-    // Tasks
-    html += '<div class="detail-section"><h4>待办事项</h4>';
-    if (p.tasks.length === 0) {
-      html += '<div class="no-task">暂无待办事项</div>';
-    } else {
-      p.tasks.forEach((t, i) => {
-        html += '<div class="detail-task" onclick="toggleDetailTask(this)">' +
-          '<div class="dt-checkbox"></div>' +
-          '<span class="task-date ' + t.dateType + '">' + t.date + '</span>' +
-          '<span class="dt-text">' + t.text + '</span></div>';
-      });
+  // Today Panel
+  html += '<div class="today-panel"><div class="today-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>今日待办（'+(td.getMonth()+1)+'月'+td.getDate()+'日）</div>';
+  html += '<div class="today-items" id="todayItems">';
+  if (todayTasks.length===0) {
+    html += '<div class="today-empty">🎉 今天没有待办事项</div>';
+  } else {
+    for (const t of todayTasks) {
+      const done=completed.has(t.taskId);
+      const shortName=t.project.split(' ')[0].split('·').slice(-1)[0];
+      html += '<div class="today-item'+(done?' done':'')+'" onclick="toggleTask(\''+t.taskId+'\',this)"><div class="ti-icon'+(done?' checked':'')+'"></div><div><div class="ti-project">'+shortName+'</div><div class="ti-task">'+t.text+'</div></div></div>';
+    }
+  }
+  html += '</div></div>';
+
+  // Tabs
+  html += '<div class="tab-bar" id="tabBar">';
+  html += '<button class="tab-btn'+(currentTab==='all'?' active':'')+'" data-tab="all">全部项目</button>';
+  html += '<button class="tab-btn'+(currentTab==='signed'?' active':'')+'" data-tab="signed">已签约</button>';
+  html += '<button class="tab-btn'+(currentTab==='unsigned'?' active':'')+'" data-tab="unsigned">未签合同</button>';
+  html += '</div>';
+
+  // Signed Projects
+  const groups = [['施工中','dot-construction',cntConst],['设计中','dot-design',cntDes],['未设计','dot-idle',cntIdle]];
+  html += '<div class="section" id="section-signed" style="'+(currentTab==='unsigned'?'display:none':'')+'">';
+  html += '<div class="section-head"><h2>已签约项目</h2><span class="badge" style="background:var(--success-light);color:#16A34A;">'+signed.length+'</span></div>';
+  for (const [gName,gDot,gCnt] of groups) {
+    const gProjs = signed.filter(([,p])=>p.status===gName);
+    if (gProjs.length===0) continue;
+    html += '<div class="group-header" onclick="toggleGroup(this)"><span class="group-dot '+gDot+'"></span><span class="group-name">'+gName+'</span><span class="group-count">'+gCnt+'个项目</span><span class="group-arrow">▼</span></div>';
+    html += '<div class="group-content">';
+    for (const [k,p] of gProjs) {
+      html += renderCard(k, p, false);
     }
     html += '</div>';
-
-    // Schedule / Progress table
-    if (p.progress && p.progress.length > 0) {
-      html += '<div class="detail-section"><h4>项目进度</h4>';
-      html += '<table class="detail-progress-table"><thead><tr><th>分类</th><th>任务</th><th>日期</th></tr></thead><tbody>';
-      p.progress.forEach(r => {
-        html += '<tr><td>' + r.cat + '</td><td>' + r.task + '</td><td>' + r.date + '</td></tr>';
-      });
-      html += '</tbody></table></div>';
-    }
-
-    // Notes
-    if (p.notes) {
-      html += '<div class="detail-section"><h4>项目备注</h4>';
-      html += '<div style="font-size:13px;color:var(--text-secondary);line-height:1.7;">' + p.notes + '</div></div>';
-    }
-
-    document.getElementById('detailBody').innerHTML = html;
-    document.getElementById('overlay').classList.add('show');
-    document.body.style.overflow = 'hidden';
   }
+  html += '</div>';
 
-  function closeDetail() {
-    document.getElementById('overlay').classList.remove('show');
-    document.body.style.overflow = '';
+  html += '<div class="sep" style="'+(currentTab!=='all'?'display:none':'')+'"></div>';
+
+  // Unsigned Projects
+  html += '<div class="section" id="section-unsigned" style="'+(currentTab==='signed'?'display:none':'')+'">';
+  html += '<div class="section-head"><h2>未签合同项目</h2><span class="badge" style="background:var(--warning-light);color:#D97706;">'+unsigned.length+'</span></div>';
+  html += '<div class="group-content">';
+  for (const [k,p] of unsigned) {
+    html += renderCard(k, p, true);
   }
+  html += '</div></div>';
 
-  function toggleDetailTask(el) {
-    el.classList.toggle('done');
-    el.querySelector('.dt-checkbox').classList.toggle('checked');
-  }
+  document.getElementById('boardContent').innerHTML = html;
 
-  // ESC to close
-  document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') closeDetail();
+  // Bind tab events
+  document.getElementById('tabBar').addEventListener('click', function(e) {
+    if (!e.target.classList.contains('tab-btn')) return;
+    currentTab = e.target.dataset.tab;
+    document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+    e.target.classList.add('active');
+    document.getElementById('section-signed').style.display = (currentTab==='unsigned')?'none':'';
+    document.getElementById('section-unsigned').style.display = (currentTab==='signed')?'none':'';
+    document.querySelector('.sep').style.display = (currentTab==='all')?'':'none';
   });
+}
 
-  // Stat card click handler
-  function statClick(type) {
-    if (type === 'signed') {
-      // 切换到已签约tab
-      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-      document.querySelector('.tab-btn[data-tab="signed"]').classList.add('active');
-      document.getElementById('section-signed').style.display = '';
-      document.getElementById('section-unsigned').style.display = 'none';
-      document.querySelector('.sep').style.display = 'none';
-      document.getElementById('section-signed').scrollIntoView({ behavior: 'smooth', block: 'start' });
-    } else if (type === 'unsigned') {
-      // 切换到未签合同tab
-      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-      document.querySelector('.tab-btn[data-tab="unsigned"]').classList.add('active');
-      document.getElementById('section-signed').style.display = 'none';
-      document.getElementById('section-unsigned').style.display = '';
-      document.querySelector('.sep').style.display = 'none';
-      document.getElementById('section-unsigned').scrollIntoView({ behavior: 'smooth', block: 'start' });
-    } else if (type === 'today') {
-      // 滚动到今日待办面板
-      document.querySelector('.today-panel').scrollIntoView({ behavior: 'smooth', block: 'start' });
+function renderCard(key, p, isUnsigned) {
+  let h = '<div class="p-card"><div class="p-card-head" onclick="openDetail(\''+key+'\')">';
+  h += '<div class="p-name">'+p.name+'</div>';
+  if (isUnsigned) {
+    h += '<span class="p-agent" style="background:var(--brand-light);color:var(--brand);">'+p.agent+'</span>';
+  } else if (p.agent && p.agent!=='—') {
+    h += '<span class="p-agent">'+p.agent+'</span>';
+  }
+  h += '</div>';
+  h += '<div class="p-card-body" id="body-'+key+'"><ul class="task-list">';
+  if (p.tasks.length===0) {
+    h += '<li class="task-item"><span class="no-task">暂无待办事项</span></li>';
+  } else {
+    for (const t of p.tasks) {
+      const df = fmtDate(t.date);
+      const done = completed.has(t.id);
+      h += '<li class="task-item'+(done?' done':'')+'" onclick="toggleTask(\''+t.id+'\',this)"><div class="task-checkbox'+(done?' checked':'')+'"></div><span class="task-date '+df.cls+'">'+df.label+'</span><span class="task-text">'+t.text+'</span></li>';
     }
   }
+  h += '</ul>';
+  if (p.notes) h += '<div class="card-notes">'+p.notes+'</div>';
+  h += '</div>';
+  if (p.tasks.length>0) h += '<div class="expand-hint" onclick="toggleBody(\''+key+'\',this)">展开详情 ▾</div>';
+  h += '</div>';
+  return h;
+}
 
-  // Week view - show all week todos in detail panel
-  function openWeekView() {
-    document.getElementById('detailTitle').textContent = '本周待办总览';
-    document.getElementById('detailMeta').innerHTML = '8月25日（周二）— 8月31日（周日）共 12 项';
-    
-    let html = '';
-    
-    // 按日期分组的本周待办
-    const weekData = [
-      {
-        day: '今天 · 8月25日（周二）',
-        items: [
-          { project: '天府九里', text: '先跟定制设计师沟通客户要求' },
-          { project: '天府九里', text: '给客户打电话沟通定制方案' },
-          { project: '建发云', text: '找效果图公司要模型' },
-          { project: '天府时区', text: '跟客户约周日的时间' }
-        ]
-      },
-      {
-        day: '明天 · 8月26日（周三）',
-        items: [
-          { project: '电建·洺悦玺', text: '确认定制方案、色板和报价' },
-          { project: '青羊润府', text: '选软装挂画' },
-          { project: '越秀阅今沙', text: '出书房平面方案' }
-        ]
-      },
-      {
-        day: '周四 · 8月28日',
-        items: [
-          { project: '明信·天府壹号', text: '确认楼梯地板安装' },
-          { project: '明信·天府壹号', text: '确认石材安装' },
-          { project: '电建·洺悦玺', text: '客户周五到店看方案' },
-          { project: '建发云', text: '效果图改完发给客户' }
-        ]
-      },
-      {
-        day: '周五 · 8月29日',
-        items: [
-          { project: '电建·洺悦玺', text: '客户到店看方案' },
-          { project: '明信·天府壹号', text: '与艺术漆沟通，安排进场' },
-          { project: '天府时区', text: '完成平面方案和设计资料' }
-        ]
-      },
-      {
-        day: '周末 · 8月30-31日',
-        items: [
-          { project: '越秀阅今沙', text: '等客户确认折叠门方案后跟进' },
-          { project: '龙湖粼湖天境', text: '下午客户来公司沟通' },
-          { project: '天府时区', text: '与客户见面沟通' }
-        ]
-      },
-      {
-        day: '下周一 · 9月1日',
-        items: [
-          { project: '明信·天府壹号', text: '跟定制确认安装时间' }
-        ]
-      }
-    ];
-    
-    weekData.forEach(group => {
-      html += '<div class="detail-section">';
-      html += '<h4>' + group.day + '</h4>';
-      group.items.forEach(item => {
-        html += '<div class="detail-task">';
-        html += '<span class="task-date d-week" style="min-width:auto;font-size:10px;">' + item.project + '</span>';
-        html += '<span class="dt-text">' + item.text + '</span>';
-        html += '</div>';
-      });
-      html += '</div>';
-    });
-    
-    document.getElementById('detailBody').innerHTML = html;
-    document.getElementById('overlay').classList.add('show');
-    document.body.style.overflow = 'hidden';
+// ======================== Interactions ========================
+function toggleTask(taskId, el) {
+  if (completed.has(taskId)) { completed.delete(taskId); }
+  else { completed.add(taskId); }
+  // Update all matching elements
+  const done = completed.has(taskId);
+  document.querySelectorAll('[onclick*="\''+taskId+'\'"]').forEach(elem => {
+    elem.classList.toggle('done', done);
+    const cb = elem.querySelector('.task-checkbox, .ti-icon');
+    if (cb) cb.classList.toggle('checked', done);
+  });
+  saveCompleted();
+}
+
+function toggleBody(key, hint) {
+  const body = document.getElementById('body-'+key);
+  if (!body) return;
+  if (body.classList.contains('open')) {
+    body.classList.remove('open'); hint.textContent='展开详情 ▾';
+  } else {
+    body.classList.add('open'); hint.textContent='收起 ▴';
   }
+}
+
+function toggleGroup(header) {
+  header.classList.toggle('collapsed');
+  const content = header.nextElementSibling;
+  content.classList.toggle('hidden');
+}
+
+function statClick(type) {
+  if (type==='signed') {
+    currentTab='signed';
+  } else if (type==='unsigned') {
+    currentTab='unsigned';
+  } else if (type==='today') {
+    document.querySelector('.today-panel').scrollIntoView({behavior:'smooth',block:'start'});
+    return;
+  }
+  // Re-render tabs
+  document.querySelectorAll('.tab-btn').forEach(b=>{b.classList.remove('active');if(b.dataset.tab===currentTab)b.classList.add('active');});
+  document.getElementById('section-signed').style.display=(currentTab==='unsigned')?'none':'';
+  document.getElementById('section-unsigned').style.display=(currentTab==='signed')?'none':'';
+  document.querySelector('.sep').style.display=(currentTab==='all')?'':'none';
+  const target = currentTab==='unsigned' ? document.getElementById('section-unsigned') : document.getElementById('section-signed');
+  if (target) target.scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+// ======================== Detail Modal ========================
+function openDetail(key) {
+  const p = projectData.projects[key];
+  if (!p) return;
+  const isUnsigned = p.status==='未签合同';
+  document.getElementById('detailTitle').textContent = p.name;
+  const stClass = isUnsigned?'st-pending':'st-signed';
+  document.getElementById('detailMeta').innerHTML = '<span class="status-tag '+stClass+'">'+p.status+'</span> · 业务员：'+p.agent;
+
+  let html = '';
+  // Tasks
+  html += '<div class="detail-section"><h4>待办事项</h4>';
+  if (p.tasks.length===0) {
+    html += '<div class="no-task">暂无待办事项</div>';
+  } else {
+    for (const t of p.tasks) {
+      const df = fmtDate(t.date);
+      const done = completed.has(t.id);
+      html += '<div class="detail-task'+(done?' done':'')+'" onclick="toggleTask(\''+t.id+'\',this)"><div class="dt-checkbox'+(done?' checked':'')+'"></div><span class="task-date '+df.cls+'">'+df.label+'</span><span class="dt-text">'+t.text+'</span></div>';
+    }
+  }
+  html += '</div>';
+
+  // Progress table
+  if (p.progress && p.progress.length>0) {
+    html += '<div class="detail-section"><h4>项目进度</h4>';
+    html += '<table class="detail-progress-table"><thead><tr><th>分类</th><th>任务</th><th>日期</th></tr></thead><tbody>';
+    for (const r of p.progress) {
+      html += '<tr><td>'+r.cat+'</td><td>'+r.task+'</td><td>'+r.date+'</td></tr>';
+    }
+    html += '</tbody></table></div>';
+  }
+
+  // Notes
+  if (p.notes) {
+    html += '<div class="detail-section"><h4>项目备注</h4>';
+    html += '<div style="font-size:13px;color:var(--text-secondary);line-height:1.7;">'+p.notes+'</div></div>';
+  }
+
+  document.getElementById('detailBody').innerHTML = html;
+  document.getElementById('overlay').classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeDetail() {
+  document.getElementById('overlay').classList.remove('show');
+  document.body.style.overflow = '';
+}
+
+function openWeekView() {
+  const todayD = new Date(); todayD.setHours(0,0,0,0);
+  const weekEnd = new Date(todayD); weekEnd.setDate(weekEnd.getDate()+6);
+  const projs = projectData.projects;
+  const allTasks = [];
+  for (const [k,p] of Object.entries(projs)) {
+    for (const t of p.tasks) {
+      if (!t.date) { allTasks.push({project:p.name,text:t.text,date:'',sortKey:'9999'}); continue; }
+      const td=new Date(t.date+'T00:00:00');
+      if (td>=todayD && td<=weekEnd) {
+        allTasks.push({project:p.name,text:t.text,date:t.date,sortKey:t.date});
+      }
+    }
+  }
+  allTasks.sort((a,b)=>a.sortKey.localeCompare(b.sortKey));
+
+  // Group by date
+  const byDate = {};
+  for (const t of allTasks) {
+    const label = t.date ? fmtDate(t.date).label : '待定';
+    if (!byDate[label]) byDate[label]=[];
+    byDate[label].push(t);
+  }
+
+  document.getElementById('detailTitle').textContent = '本周待办总览';
+  document.getElementById('detailMeta').innerHTML = '共 '+allTasks.length+' 项任务';
+
+  let html = '';
+  for (const [label,items] of Object.entries(byDate)) {
+    html += '<div class="detail-section"><h4>'+label+'</h4>';
+    for (const it of items) {
+      const shortName = it.project.split(' ')[0].split('·').slice(-1)[0];
+      html += '<div class="detail-task"><span class="task-date d-week" style="min-width:auto;font-size:10px;">'+shortName+'</span><span class="dt-text">'+it.text+'</span></div>';
+    }
+    html += '</div>';
+  }
+
+  document.getElementById('detailBody').innerHTML = html;
+  document.getElementById('overlay').classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+
+// ======================== Settings / Setup ========================
+function openSetup() {
+  document.getElementById('setupTokenInput').value = '';
+  document.getElementById('setupStatus').textContent = '';
+  document.getElementById('setupModal').classList.add('show');
+}
+function closeSetup() { document.getElementById('setupModal').classList.remove('show'); }
+
+async function verifyAndSaveToken() {
+  const input = document.getElementById('setupTokenInput');
+  const status = document.getElementById('setupStatus');
+  const token = input.value.trim();
+  if (!token) { status.textContent='请输入 Token'; status.className='setup-status err'; return; }
+  status.textContent = '验证中...'; status.className='setup-status';
+  try {
+    const r = await fetch('https://api.github.com/user', {headers:{'Authorization':'token '+token}});
+    if (!r.ok) throw new Error('invalid');
+    const user = await r.json();
+    status.textContent = '✓ 验证成功：'+user.login; status.className='setup-status ok';
+    localStorage.setItem('github_pat', token);
+    setTimeout(async ()=>{
+      closeSetup();
+      try { await init(); } catch(e) { status.textContent='加载失败'; status.className='setup-status err'; }
+    }, 600);
+  } catch(e) {
+    status.textContent='✗ Token 无效，请检查后重试'; status.className='setup-status err';
+  }
+}
+
+function openSettings() {
+  document.getElementById('settingsTokenInput').value = getToken();
+  document.getElementById('settingsStatus').textContent = '';
+  document.getElementById('settingsModal').classList.add('show');
+}
+function closeSettings() { document.getElementById('settingsModal').classList.remove('show'); }
+function updateToken() {
+  const token = document.getElementById('settingsTokenInput').value.trim();
+  if (token) localStorage.setItem('github_pat', token);
+  closeSettings();
+  setSync('ok','Token 已更新');
+}
+function clearToken() {
+  localStorage.removeItem('github_pat');
+  closeSettings();
+  setSync('err','Token 已清除');
+}
+
+// ======================== Init ========================
+async function init() {
+  try {
+    await loadData();
+    // Restore local completions if no token
+    if (!getToken()) {
+      try {
+        const local = JSON.parse(localStorage.getItem('completed_local')||'[]');
+        local.forEach(id=>completed.add(id));
+      } catch(e){}
+    }
+    document.getElementById('loadingView').style.display='none';
+    document.getElementById('mainApp').style.display='';
+    render();
+    setSync('ok','已加载');
+  } catch(e) {
+    if (e.message && (e.message.includes('401')||e.message.includes('403')||e.message.includes('404'))) {
+      // Auth needed
+      document.getElementById('loadingView').innerHTML = '<div style="font-size:16px;margin-bottom:12px;">🔒 需要连接 GitHub</div><div style="font-size:13px;color:var(--text-secondary);">请点击下方按钮输入你的 GitHub Token</div><button onclick="openSetup()" style="margin-top:16px;padding:10px 24px;border-radius:8px;background:var(--brand);color:#fff;border:none;font-size:14px;font-weight:600;cursor:pointer;">连接 GitHub</button>';
+    } else {
+      document.getElementById('loadingView').innerHTML = '<div style="color:var(--danger);">加载失败：'+e.message+'</div><button onclick="location.reload()" style="margin-top:12px;padding:8px 20px;border-radius:8px;background:var(--brand);color:#fff;border:none;cursor:pointer;">重试</button>';
+    }
+  }
+}
+
+// ESC to close
+document.addEventListener('keydown', function(e) { if(e.key==='Escape'){closeDetail();closeSetup();closeSettings();} });
+
+// Start
+init();
 </script>
 </body>
 </html>
