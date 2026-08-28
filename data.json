@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-28T18:04:00+08:00",
+  "lastUpdated": "2026-08-28T18:44:00+08:00",
   "projects": {
     "tianfu": {
       "name": "明信·天府壹号 9-1-301",
@@ -83,9 +83,9 @@
       "notes": ""
     },
     "jianfa": {
-      "name": "建发云 12-902",
+      "name": "建发缦云 12-902",
       "status": "设计中",
-      "agent": "—",
+      "agent": "赵文卓",
       "tasks": [
         {
           "id": "jianfa_t1",
