@@ -59,10 +59,16 @@
           "id": "mingyue_t4",
           "text": "沟通门槛石铺贴问题",
           "date": "2026-09-01"
+        },
+        {
+          "id": "mingyue_t5",
+          "text": "对接电负荷（用电负荷容量）",
+          "date": "2026-09-02",
+          "important": true
         }
       ],
       "progress": [],
-      "notes": ""
+      "notes": "9/2对接电负荷，凡哥强调很重要。"
     },
     "qingyang": {
       "name": "青羊润府 13-1-1301",
