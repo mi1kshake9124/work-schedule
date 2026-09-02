@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-09-02T17:49:00+08:00",
+  "lastUpdated": "2026-09-02T19:08:00+08:00",
   "projects": {
     "tianfu": {
       "name": "明信·天府壹号 9-1-301",
@@ -64,6 +64,18 @@
           "id": "mingyue_t5",
           "text": "对接电负荷（用电负荷容量）",
           "date": "2026-09-02",
+          "important": true
+        },
+        {
+          "id": "mingyue_t6",
+          "text": "跟定制设计师沟通-石材选的图片放到效果图里重新出图",
+          "date": "2026-09-03",
+          "important": true
+        },
+        {
+          "id": "mingyue_t7",
+          "text": "去跟石材老板对接石材问题",
+          "date": "2026-09-03",
           "important": true
         }
       ],
