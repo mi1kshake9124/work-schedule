@@ -48,9 +48,16 @@
     cursor:pointer; transition:all .15s;
   }
   .cal-link:hover { opacity:.9; }
+  .add-task-btn {
+    text-decoration:none; display:flex; align-items:center; gap:6px;
+    padding:6px 14px; border-radius:20px; font-size:13px; font-weight:600;
+    background:var(--card); color:var(--brand); border:1.5px solid var(--brand);
+    cursor:pointer; transition:all .15s;
+  }
+  .add-task-btn:hover { background:var(--brand-light); }
 
   /* Stats */
-  .stats-row { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-bottom:24px; }
+  .stats-row { display:grid; grid-template-columns:repeat(5,1fr); gap:12px; margin-bottom:24px; }
   .stat-card {
     background:var(--card); border-radius:var(--radius); padding:16px;
     box-shadow:var(--shadow-sm); border:1px solid var(--divider);
@@ -92,6 +99,53 @@
   .today-item .ti-icon.checked::after { content:'✓'; color:#4F6EF7; font-size:12px; font-weight:700; }
   .today-item.done .ti-task { text-decoration:line-through; opacity:.5; }
   .today-empty { text-align:center; padding:16px; opacity:.7; font-size:14px; }
+
+  /* Overdue Panel */
+  .overdue-panel {
+    background:linear-gradient(135deg,#EF4444 0%,#F97316 100%);
+    border-radius:var(--radius); padding:16px 20px; margin-bottom:24px;
+    color:#fff; box-shadow:var(--shadow-md); cursor:pointer; transition:box-shadow .15s;
+  }
+  .overdue-panel:hover { box-shadow:var(--shadow-lg); }
+  .overdue-panel .overdue-title {
+    font-size:14px; font-weight:600; opacity:.95;
+    display:flex; align-items:center; gap:8px;
+  }
+  .overdue-panel .overdue-count {
+    font-size:12px; padding:1px 8px; border-radius:10px;
+    background:rgba(255,255,255,.25); font-weight:700;
+  }
+  .overdue-panel .overdue-arrow {
+    margin-left:auto; font-size:12px; opacity:.8; transition:transform .2s;
+  }
+  .overdue-panel.collapsed .overdue-arrow { transform:rotate(-90deg); }
+  .overdue-content {
+    max-height:0; overflow:hidden; transition:max-height .3s ease,margin-top .2s;
+  }
+  .overdue-content.open { max-height:800px; margin-top:12px; }
+  .overdue-item {
+    background:rgba(255,255,255,.12); backdrop-filter:blur(4px);
+    border-radius:var(--radius-sm); padding:10px 14px;
+    display:flex; align-items:flex-start; gap:10px;
+    cursor:pointer; transition:background .15s; margin-bottom:8px;
+  }
+  .overdue-item:last-child { margin-bottom:0; }
+  .overdue-item:hover { background:rgba(255,255,255,.22); }
+  .overdue-item .oi-project { font-size:11px; font-weight:600; opacity:.75; margin-bottom:2px; }
+  .overdue-item .oi-task { font-size:14px; font-weight:500; }
+  .overdue-item .oi-date {
+    font-size:11px; font-weight:600; opacity:.7; margin-top:2px;
+  }
+  .overdue-item .oi-icon {
+    width:20px; height:20px; border-radius:50%;
+    border:2px solid rgba(255,255,255,.5); flex-shrink:0; margin-top:1px;
+    display:flex; align-items:center; justify-content:center;
+    cursor:pointer; transition:all .15s;
+  }
+  .overdue-item .oi-icon:hover { border-color:#fff; background:rgba(255,255,255,.2); }
+  .overdue-item .oi-icon.checked { background:rgba(255,255,255,.9); border-color:rgba(255,255,255,.9); }
+  .overdue-item .oi-icon.checked::after { content:'✓'; color:#EF4444; font-size:12px; font-weight:700; }
+  .overdue-item.done .oi-task { text-decoration:line-through; opacity:.5; }
 
   /* Tab Filter */
   .tab-bar { display:flex; gap:6px; margin-bottom:16px; flex-wrap:wrap; }
@@ -282,6 +336,27 @@
   .setup-status.ok { color:var(--success); }
   .setup-status.err { color:var(--danger); }
 
+  /* Add Task Modal */
+  .add-task-modal .modal-box { max-width:460px; }
+  .form-group { margin-bottom:14px; }
+  .form-group label {
+    display:block; font-size:12px; font-weight:600; color:var(--text-secondary);
+    margin-bottom:6px; text-transform:uppercase; letter-spacing:.5px;
+  }
+  .form-group select,
+  .form-group input[type="text"],
+  .form-group input[type="date"] {
+    width:100%; padding:10px 12px; border:1.5px solid var(--divider);
+    border-radius:var(--radius-sm); font-size:14px; outline:none;
+    transition:border-color .15s; background:#fff; color:var(--text-primary);
+    font-family:inherit;
+  }
+  .form-group select:focus,
+  .form-group input[type="text"]:focus,
+  .form-group input[type="date"]:focus { border-color:var(--brand); }
+  .form-row { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  .form-hint { font-size:11px; color:var(--text-muted); margin-top:4px; }
+
   /* Sync Bar */
   .sync-bar {
     position:fixed; bottom:0; left:0; right:0;
@@ -309,7 +384,7 @@
 
   /* Responsive */
   @media (max-width:768px) {
-    .stats-row { grid-template-columns:repeat(2,1fr); gap:8px; }
+    .stats-row { grid-template-columns:repeat(3,1fr); gap:8px; }
     .group-content { grid-template-columns:1fr; }
     .stat-card .value { font-size:22px; }
   }
@@ -365,6 +440,34 @@
   </div>
 </div>
 
+<!-- Add Task Modal -->
+<div class="modal-overlay add-task-modal" id="addTaskModal">
+  <div class="modal-box">
+    <h3>➕ 添加任务</h3>
+    <p>填写任务信息，提交后会自动同步到 GitHub。</p>
+    <div class="form-group">
+      <label>所属项目</label>
+      <select id="addTaskProject"></select>
+    </div>
+    <div class="form-group">
+      <label>任务内容</label>
+      <input type="text" id="addTaskText" placeholder="例如：确认石材安装时间">
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>截止日期</label>
+        <input type="date" id="addTaskDate">
+      </div>
+    </div>
+    <div class="form-hint">💡 任务 ID 会自动生成，不会与现有任务冲突。</div>
+    <div class="setup-status" id="addTaskStatus"></div>
+    <div class="modal-btns">
+      <button onclick="closeAddTask()">取消</button>
+      <button class="primary" onclick="submitAddTask()" id="addTaskSubmitBtn">添加任务</button>
+    </div>
+  </div>
+</div>
+
 <!-- Main App -->
 <main class="app" id="mainApp" style="display:none;">
   <!-- Header -->
@@ -375,6 +478,10 @@
     </div>
     <div class="header-right">
       <button class="icon-btn" onclick="openSettings()" title="设置">⚙</button>
+      <button class="add-task-btn" onclick="openAddTask()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        添加任务
+      </button>
       <a class="cal-link" href="https://mi1kshake9124.github.io/cal-schedule/" target="_blank" rel="noopener noreferrer">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
         日历视图
@@ -668,7 +775,7 @@ function render() {
   // Categorize
   const signed=[], unsigned=[];
   let cntConst=0, cntDes=0, cntIdle=0;
-  const todayTasks=[], weekTasks=[];
+  const todayTasks=[], weekTasks=[], overdueTasks=[];
 
   for (const [k,p] of Object.entries(projs)) {
     if (p.status==='未签合同') { unsigned.push([k,p]); }
@@ -686,9 +793,15 @@ function render() {
         const df=fmtDate(t.date);
         weekTasks.push({project:p.name,taskId:t.id,text:t.text,date:t.date,dateType:df.cls});
       }
+      // Overdue: date before today and not completed
+      if (td2 < todayD && !completed.has(t.id)) {
+        overdueTasks.push({project:p.name,taskId:t.id,text:t.text,date:t.date});
+      }
     }
   }
   weekTasks.sort((a,b)=>{if(!a.date)return 1;if(!b.date)return -1;return a.date.localeCompare(b.date);});
+  // Overdue sorted by date descending (most recent first)
+  overdueTasks.sort((a,b)=>b.date.localeCompare(a.date));
 
   // Build HTML
   let html = '';
@@ -698,6 +811,7 @@ function render() {
   html += '<div class="stat-card" onclick="statClick(\'signed\')"><div class="label">已签约</div><div class="value">'+signed.length+'</div><div class="sub">施工'+cntConst+' · 设计'+cntDes+' · 未设计'+cntIdle+'</div></div>';
   html += '<div class="stat-card" onclick="statClick(\'unsigned\')"><div class="label">未签合同</div><div class="value">'+unsigned.length+'</div><div class="sub">跟进中</div></div>';
   html += '<div class="stat-card" onclick="statClick(\'today\')"><div class="label">今日待办</div><div class="value" style="color:var(--danger)">'+todayTasks.length+'</div><div class="sub">跨 '+new Set(todayTasks.map(t=>t.project)).size+' 个项目</div></div>';
+  html += '<div class="stat-card" onclick="statClick(\'overdue\')"><div class="label">过期任务</div><div class="value" style="color:var(--warning)">'+overdueTasks.length+'</div><div class="sub">待处理</div></div>';
   html += '<div class="stat-card" onclick="openWeekView()"><div class="label">本周待办</div><div class="value">'+weekTasks.length+'</div><div class="sub">截至周日</div></div>';
   html += '</div>';
 
@@ -714,6 +828,25 @@ function render() {
     }
   }
   html += '</div></div>';
+
+  // Overdue Panel
+  if (overdueTasks.length > 0) {
+    html += '<div class="overdue-panel" id="overduePanel" onclick="toggleOverduePanel(event)">';
+    html += '<div class="overdue-title">';
+    html += '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>';
+    html += '过期任务 <span class="overdue-count">'+overdueTasks.length+'</span>';
+    html += '<span class="overdue-arrow">▼</span>';
+    html += '</div>';
+    html += '<div class="overdue-content open" id="overdueContent">';
+    for (const t of overdueTasks) {
+      const done = completed.has(t.taskId);
+      const shortName = t.project.split(' ')[0].split('·').slice(-1)[0];
+      const mm=t.date.split('-')[1], dd=t.date.split('-')[2];
+      const daysAgo = Math.round((todayD - new Date(t.date+'T00:00:00'))/864e5);
+      html += '<div class="overdue-item'+(done?' done':'')+'" onclick="toggleTask(\''+t.taskId+'\',this)"><div class="oi-icon'+(done?' checked':'')+'"></div><div><div class="oi-project">'+shortName+'</div><div class="oi-task">'+t.text+'</div><div class="oi-date">'+mm+'/'+dd+' · 过期'+daysAgo+'天</div></div></div>';
+    }
+    html += '</div></div>';
+  }
 
   // Tabs
   html += '<div class="tab-bar" id="tabBar">';
@@ -798,7 +931,7 @@ function toggleTask(taskId, el) {
   const done = completed.has(taskId);
   document.querySelectorAll('[onclick*="\''+taskId+'\'"]').forEach(elem => {
     elem.classList.toggle('done', done);
-    const cb = elem.querySelector('.task-checkbox, .ti-icon');
+    const cb = elem.querySelector('.task-checkbox, .ti-icon, .oi-icon, .dt-checkbox');
     if (cb) cb.classList.toggle('checked', done);
   });
   saveCompleted();
@@ -827,6 +960,17 @@ function statClick(type) {
     currentTab='unsigned';
   } else if (type==='today') {
     document.querySelector('.today-panel').scrollIntoView({behavior:'smooth',block:'start'});
+    return;
+  } else if (type==='overdue') {
+    const op = document.getElementById('overduePanel');
+    if (op) {
+      const oc = document.getElementById('overdueContent');
+      if (!oc.classList.contains('open')) {
+        op.classList.remove('collapsed');
+        oc.classList.add('open');
+      }
+      op.scrollIntoView({behavior:'smooth',block:'start'});
+    }
     return;
   }
   // Re-render tabs
@@ -987,6 +1131,134 @@ function clearToken() {
   setSync('err','Token 已清除');
 }
 
+// ======================== Overdue Panel ========================
+function toggleOverduePanel(e) {
+  // Only toggle when clicking the header (not items)
+  const panel = document.getElementById('overduePanel');
+  const content = document.getElementById('overdueContent');
+  if (e.target.closest('.overdue-item')) return;
+  panel.classList.toggle('collapsed');
+  content.classList.toggle('open');
+}
+
+// ======================== Add Task ========================
+function openAddTask() {
+  const token = getToken();
+  const status = document.getElementById('addTaskStatus');
+  if (!token) {
+    status.textContent = '⚠ 请先在设置中配置 GitHub Token';
+    status.className = 'setup-status err';
+  } else {
+    status.textContent = '';
+    status.className = 'setup-status';
+  }
+  // Populate project dropdown
+  const select = document.getElementById('addTaskProject');
+  select.innerHTML = '';
+  if (projectData) {
+    for (const [k,p] of Object.entries(projectData.projects)) {
+      const opt = document.createElement('option');
+      opt.value = k;
+      opt.textContent = p.name + ' (' + p.status + ')';
+      select.appendChild(opt);
+    }
+  }
+  document.getElementById('addTaskText').value = '';
+  document.getElementById('addTaskDate').value = todayStr();
+  document.getElementById('addTaskModal').classList.add('show');
+  document.getElementById('addTaskSubmitBtn').disabled = false;
+}
+
+function closeAddTask() {
+  document.getElementById('addTaskModal').classList.remove('show');
+}
+
+async function submitAddTask() {
+  const token = getToken();
+  const status = document.getElementById('addTaskStatus');
+  const submitBtn = document.getElementById('addTaskSubmitBtn');
+  
+  if (!token) {
+    status.textContent = '⚠ 请先在设置中配置 GitHub Token';
+    status.className = 'setup-status err';
+    return;
+  }
+  
+  const projectKey = document.getElementById('addTaskProject').value;
+  const text = document.getElementById('addTaskText').value.trim();
+  const date = document.getElementById('addTaskDate').value;
+  
+  if (!text) {
+    status.textContent = '请输入任务内容';
+    status.className = 'setup-status err';
+    return;
+  }
+  if (!projectKey) {
+    status.textContent = '请选择所属项目';
+    status.className = 'setup-status err';
+    return;
+  }
+  
+  submitBtn.disabled = true;
+  status.textContent = '正在提交...';
+  status.className = 'setup-status';
+  setSync('saving', '添加任务中...');
+  
+  const taskId = projectKey + '_t' + Date.now();
+  let step = '获取文件SHA';
+  
+  try {
+    // 1. Get current data.json SHA
+    const cur = await ghFetch(DATA_FILE, token);
+    const sha = cur.sha;
+    
+    // 2. Decode current content
+    let currentData;
+    try {
+      currentData = JSON.parse(decodeURIComponent(escape(atob(cur.content.replace(/\n/g,'')))));
+    } catch(e) {
+      // Try raw.githubusercontent as fallback
+      const rawResp = await fetch('https://raw.githubusercontent.com/'+GITHUB_OWNER+'/'+GITHUB_REPO+'/main/'+DATA_FILE+'?t='+Date.now());
+      if (!rawResp.ok) throw new Error('无法读取 data.json');
+      currentData = await rawResp.json();
+    }
+    
+    step = '添加任务到项目';
+    
+    // 3. Add new task to the project
+    if (!currentData.projects[projectKey]) {
+      throw new Error('项目不存在');
+    }
+    const newTask = { id: taskId, text: text, date: date };
+    currentData.projects[projectKey].tasks.push(newTask);
+    
+    // Also update local projectData for immediate render
+    projectData = currentData;
+    
+    step = '写入 GitHub';
+    
+    // 4. Write back to GitHub
+    const content = btoa(unescape(encodeURIComponent(JSON.stringify(currentData, null, 2))));
+    await ghPut(DATA_FILE, content, '添加任务: ' + text.substring(0,30), sha, token);
+    
+    status.textContent = '✓ 添加成功！';
+    status.className = 'setup-status ok';
+    setSync('ok', '任务已添加');
+    
+    // 5. Close modal and refresh
+    setTimeout(() => {
+      closeAddTask();
+      render();
+    }, 800);
+    
+  } catch(e) {
+    status.textContent = '✗ 添加失败 (' + step + '): ' + e.message;
+    status.className = 'setup-status err';
+    submitBtn.disabled = false;
+    setSync('err', '添加任务失败');
+  }
+}
+
 // ======================== Init ========================
 async function init() {
   try {
@@ -1008,7 +1280,7 @@ async function init() {
 }
 
 // ESC to close
-document.addEventListener('keydown', function(e) { if(e.key==='Escape'){closeDetail();closeSetup();closeSettings();} });
+document.addEventListener('keydown', function(e) { if(e.key==='Escape'){closeDetail();closeSetup();closeSettings();closeAddTask();} });
 
 // Start
 init();
